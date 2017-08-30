@@ -1,3 +1,5 @@
+**THIS VERSION IS DEPRECATED**
+
 # Moltin JavaScript SDK
 
 The Moltin Javascript SDK is a simple to use interface for the Moltin eCommerce API to help you get off the ground quickly and efficiently within client and server applications.
