@@ -3,7 +3,6 @@ import 'es6-promise';
 
 import Config from './config';
 import RequestFactory from './factories/request';
-import LocalStorageFactory from './adapters/local-storage';
 import ProductsEndpoint from './endpoints/products';
 import CurrenciesEndpoint from './endpoints/currencies';
 import BrandsEndpoint from './endpoints/brands';
@@ -19,10 +18,9 @@ import { cartIdentifier } from './utils/helpers';
 export default class Moltin {
   constructor(config) {
     this.config = config;
-    this.cartId = cartIdentifier(config.storage);
 
     this.request = new RequestFactory(config);
-    this.storage = config.storage || new LocalStorageFactory();
+    this.storage = config.storage
 
     this.Products = new ProductsEndpoint(config);
     this.Currencies = new CurrenciesEndpoint(config);
@@ -35,7 +33,7 @@ export default class Moltin {
   }
 
   // Expose `Cart` class on Moltin class
-  Cart(id = this.cartId) {
+  Cart(id) {
     return new CartEndpoint(this.request, id);
   }
 
@@ -48,4 +46,7 @@ export default class Moltin {
 // Export a function to instantiate the Moltin class
 const gateway = config => new Moltin(new Config(config));
 
-export { gateway };
+export {
+  gateway,
+  createCartId: cartIdentifier
+};
