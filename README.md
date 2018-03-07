@@ -78,6 +78,23 @@ const Moltin = MoltinGateway({
 });
 ```
 
+### Custom storage
+If you wish to use something different than `localStorage`, you will want to create or use an existing storage engine.
+
+```js
+const MoltinGateway = require('@moltin/sdk').gateway
+const customStorageEngine = require('@moltin/custom-storage-engine')
+
+const myStorage = new customStorageEngine({
+  uri: ''
+})
+
+const Moltin = MoltinGateway({
+  client_id: 'XXX',
+  client_secret: 'XXX',
+  storage: myStorage
+})
+```
 
 ## Contributing
 
