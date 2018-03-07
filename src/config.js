@@ -2,7 +2,7 @@ import { version } from '../package.json';
 
 class Config {
   constructor(options) {
-    const { application, client_id, client_secret, currency, host } = options;
+    const { application, client_id, client_secret, currency, host, config } = options;
 
     this.application = application;
     this.client_id = client_id;
@@ -19,6 +19,7 @@ class Config {
       version,
       language: 'JS',
     };
+    this.storage = storage;
   }
 }
 

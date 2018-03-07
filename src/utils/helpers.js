@@ -1,5 +1,4 @@
 import uuidv4 from 'uuid/v4';
-import StorageFactory from '../factories/storage';
 
 export function buildRelationshipData(type, ids) {
   let data = [];
@@ -25,8 +24,7 @@ export function buildRelationshipData(type, ids) {
   return data;
 }
 
-export function cartIdentifier() {
-  const storage = new StorageFactory();
+export function cartIdentifier(storage) {
   const cartId = uuidv4();
 
   if (storage.get('mcart') !== null) {

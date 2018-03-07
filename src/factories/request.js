@@ -1,11 +1,10 @@
-import StorageFactory from './storage';
 import { buildRequestBody, parseJSON } from '../utils/helpers';
 
 class RequestFactory {
   constructor(config) {
     this.config = config;
 
-    this.storage = new StorageFactory();
+    this.storage = config.storage
   }
 
   authenticate() {
