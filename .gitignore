@@ -3,3 +3,5 @@ localStorage/
 npm-debug.log
 .npmrc
 dist/
+
+*.log

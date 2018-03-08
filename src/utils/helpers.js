@@ -1,5 +1,4 @@
 import uuidv4 from 'uuid/v4';
-import StorageFactory from '../adapters/local-storage';
 
 export function buildRelationshipData(type, ids) {
   let data = [];
@@ -25,18 +24,16 @@ export function buildRelationshipData(type, ids) {
   return data;
 }
 
-export function cartIdentifier() {
-  // const cartId = uuidv4();
+export function cartIdentifier(storage) {
+  const cartId = uuidv4();
 
-  // if (storage.get('mcart') !== null) {
-  //   return storage.get('mcart');
-  // }
-  //
-  // storage.set('mcart', cartId);
+  if (storage.get('mcart') !== null) {
+    return storage.get('mcart');
+  }
 
-  // return cartId;
+  storage.set('mcart', cartId);
 
-  return uuidv4()
+  return cartId;
 }
 
 export function parseJSON(response) {

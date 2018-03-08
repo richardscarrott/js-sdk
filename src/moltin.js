@@ -22,6 +22,8 @@ export default class Moltin {
     this.request = new RequestFactory(config);
     this.storage = config.storage
 
+    this.cartId = cartIdentifier(this.storage);
+
     this.Products = new ProductsEndpoint(config);
     this.Currencies = new CurrenciesEndpoint(config);
     this.Brands = new BrandsEndpoint(config);
@@ -33,7 +35,7 @@ export default class Moltin {
   }
 
   // Expose `Cart` class on Moltin class
-  Cart(id) {
+  Cart(id = this.cartId) {
     return new CartEndpoint(this.request, id);
   }
 
@@ -47,6 +49,5 @@ export default class Moltin {
 const gateway = config => new Moltin(new Config(config));
 
 export {
-  gateway,
-  createCartId: cartIdentifier
+  gateway
 };
