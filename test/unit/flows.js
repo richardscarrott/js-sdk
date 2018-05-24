@@ -3,7 +3,8 @@ import nock from 'nock'
 import { gateway as MoltinGateway } from '../../src/moltin'
 import {
   flowsArray as flows,
-  flowEntriesArray as flowEntries
+  flowEntriesArray as flowEntries,
+  TestStorageFactory
 } from '../factories'
 
 const apiUrl = 'https://api.moltin.com/v2'
@@ -11,7 +12,8 @@ const apiUrl = 'https://api.moltin.com/v2'
 describe('Moltin flows', () => {
   it('should create a flow', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
     // Intercept the API request
     nock(apiUrl, {
@@ -37,7 +39,8 @@ describe('Moltin flows', () => {
 
   it('should update a flow', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -65,7 +68,8 @@ describe('Moltin flows', () => {
 
   it('should get a flow', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -86,7 +90,8 @@ describe('Moltin flows', () => {
 
   it('should delete a flow', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -105,7 +110,8 @@ describe('Moltin flows', () => {
 
   it('should return an array of flows', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -124,7 +130,8 @@ describe('Moltin flows', () => {
 
   it('should return a single flow', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -143,7 +150,8 @@ describe('Moltin flows', () => {
 
   it('should return an array of flows entries', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -162,7 +170,8 @@ describe('Moltin flows', () => {
 
   it('should create a flow entry', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
     // Intercept the API request
     nock(apiUrl, {
@@ -189,7 +198,8 @@ describe('Moltin flows', () => {
 
   it('should update an entry', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -217,7 +227,8 @@ describe('Moltin flows', () => {
 
   it('should get an entry', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -238,7 +249,8 @@ describe('Moltin flows', () => {
 
   it('should delete an entry', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request

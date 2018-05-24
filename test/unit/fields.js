@@ -1,13 +1,15 @@
 import { assert } from 'chai'
 import nock from 'nock'
 import { gateway as MoltinGateway } from '../../src/moltin'
+import { TestStorageFactory } from '../factories'
 
 const apiUrl = 'https://api.moltin.com/v2'
 
 describe('Moltin flow fields', () => {
   it('should create a field', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
     // Intercept the API request
     nock(apiUrl, {
@@ -34,7 +36,8 @@ describe('Moltin flow fields', () => {
 
   it('should update a field', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -62,7 +65,8 @@ describe('Moltin flow fields', () => {
 
   it('should get a field', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -83,7 +87,8 @@ describe('Moltin flow fields', () => {
 
   it('should delete a field', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request

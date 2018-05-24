@@ -3,7 +3,8 @@ import nock from 'nock'
 import { gateway as MoltinGateway } from '../../src/moltin'
 import {
   inventoriesArray as inventories,
-  stockTransactionsArray as transactions
+  stockTransactionsArray as transactions,
+  TestStorageFactory
 } from '../factories'
 
 const apiUrl = 'https://api.moltin.com/v2'
@@ -11,7 +12,8 @@ const apiUrl = 'https://api.moltin.com/v2'
 describe('Moltin inventories', () => {
   it('should return an array of inventories', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -30,7 +32,8 @@ describe('Moltin inventories', () => {
 
   it('should return a single product inventory', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -49,7 +52,8 @@ describe('Moltin inventories', () => {
 
   it('should return an array inventory transactions for specific product', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     nock(apiUrl, {
@@ -69,7 +73,8 @@ describe('Moltin inventories', () => {
 
   it('should increment stock', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     nock(apiUrl, {
@@ -103,7 +108,8 @@ describe('Moltin inventories', () => {
 
   it('should decrement stock', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     nock(apiUrl, {
@@ -137,7 +143,8 @@ describe('Moltin inventories', () => {
 
   it('should allocate stock', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     nock(apiUrl, {
@@ -171,7 +178,8 @@ describe('Moltin inventories', () => {
 
   it('should deallocate stock', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     nock(apiUrl, {

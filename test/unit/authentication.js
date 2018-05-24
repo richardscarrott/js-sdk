@@ -1,6 +1,7 @@
 import { assert } from 'chai'
 import nock from 'nock'
 import { gateway as MoltinGateway } from '../../src/moltin'
+import LocalStorageFactory from '../../src/factories/storages/localstorage'
 
 const apiUrl = 'https://api.moltin.com'
 
@@ -64,7 +65,7 @@ describe('Moltin authentication', () => {
     assert.equal(Moltin.config.host, 'api.test.test')
   })
 
-  it('should cache authentication details', () => {
+  it('should cache authentication details if using local storage', () => {
     // Intercept the API request
     nock(apiUrl, {
       reqheaders: {
@@ -80,17 +81,19 @@ describe('Moltin authentication', () => {
         expires: '999999999999999999999'
       })
 
+    const storage = new LocalStorageFactory()
+
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new LocalStorageFactory()
     })
 
     Moltin.Authenticate().then(() => {
-      const storage = Moltin.request.storage
       assert.exists(storage.get('moltinCredentials'))
     })
   })
 
-  it('should clear cache if client ID is different', () => {
+  it('should clear cache if client ID is different and using local storage', () => {
     // Intercept the API request
     nock(apiUrl, {
       reqheaders: {
@@ -106,15 +109,16 @@ describe('Moltin authentication', () => {
         expires: '999999999999999999999'
       })
 
+    const storage = new LocalStorageFactory()
+
     let Moltin = MoltinGateway({
-      client_id: 'YYY'
+      client_id: 'YYY',
+      storage
     })
 
-    return Moltin.Authenticate().then(() => {
-      let storage = Moltin.request.storage
-      let credentials = JSON.parse(storage.get('moltinCredentials'))
+    return Moltin.Authenticate().then(response => {
       assert.equal(
-        credentials.access_token,
+        response.access_token,
         'a550d8cbd4a4627013452359ab69694cd446615b'
       )
 
@@ -134,14 +138,13 @@ describe('Moltin authentication', () => {
         })
 
       Moltin = MoltinGateway({
-        client_id: 'XXX'
+        client_id: 'XXX',
+        storage
       })
 
-      return Moltin.Authenticate().then(() => {
-        storage = Moltin.request.storage
-        credentials = JSON.parse(storage.get('moltinCredentials'))
+      return Moltin.Authenticate().then(second_response => {
         assert.equal(
-          credentials.access_token,
+          second_response.access_token,
           'a550d8cbd4a4627013452359ab69694cd446615a'
         )
       })

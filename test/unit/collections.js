@@ -3,14 +3,16 @@ import nock from 'nock'
 import { gateway as MoltinGateway } from '../../src/moltin'
 import {
   collectionsArray as collections,
-  productsArray as products
+  productsArray as products,
+  TestStorageFactory
 } from '../factories'
 
 const apiUrl = 'https://api.moltin.com/v2'
 
 describe('Moltin collections', () => {
   const Moltin = MoltinGateway({
-    client_id: 'XXX'
+    client_id: 'XXX',
+    storage: new TestStorageFactory()
   })
 
   it('should return an array of collections', () => {

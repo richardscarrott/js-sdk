@@ -1,3 +1,19 @@
+export class TestStorageFactory {
+  constructor() {
+    this.storage = {
+      moltinCredentials: JSON.stringify({
+        access_token: 'a550d8cbd4a4627013452359ab69694cd446615a',
+        expires: '999999999999999999999',
+        client_id: 'XXX'
+      })
+    }
+  }
+
+  get(key) {
+    return this.storage[key]
+  }
+}
+
 export const productsArray = [
   {
     id: 'product-1',

@@ -1,13 +1,17 @@
 import { assert } from 'chai'
 import nock from 'nock'
 import { gateway as MoltinGateway } from '../../src/moltin'
-import { orderTransactionsArray as transactions } from '../factories'
+import {
+  orderTransactionsArray as transactions,
+  TestStorageFactory
+} from '../factories'
 
 const apiUrl = 'https://api.moltin.com/v2'
 
 describe('Moltin order transactions', () => {
   const Moltin = MoltinGateway({
-    client_id: 'XXX'
+    client_id: 'XXX',
+    storage: new TestStorageFactory()
   })
 
   it('should return an array of order transactions', () => {

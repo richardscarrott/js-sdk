@@ -1,4 +1,3 @@
-import StorageFactory from './storage'
 import { buildRequestBody, parseJSON } from '../utils/helpers'
 
 class Credentials {
@@ -21,7 +20,7 @@ class RequestFactory {
   constructor(config) {
     this.config = config
 
-    this.storage = new StorageFactory()
+    this.storage = this.config.storage
   }
 
   authenticate() {
@@ -72,6 +71,7 @@ class RequestFactory {
         response.expires
       )
       storage.set('moltinCredentials', JSON.stringify(credentials))
+      return response
     })
 
     return promise
@@ -81,7 +81,6 @@ class RequestFactory {
     const { config, storage } = this
 
     const promise = new Promise((resolve, reject) => {
-      const credentials = JSON.parse(storage.get('moltinCredentials'))
       const req = ({ access_token }) => {
         const headers = {
           Authorization: `Bearer: ${access_token}`,
@@ -118,6 +117,7 @@ class RequestFactory {
           .catch(error => reject(error))
       }
 
+      const credentials = JSON.parse(storage.get('moltinCredentials'))
       if (
         !credentials ||
         !credentials.access_token ||
@@ -125,7 +125,7 @@ class RequestFactory {
         Math.floor(Date.now() / 1000) >= credentials.expires
       ) {
         return this.authenticate()
-          .then(() => req(JSON.parse(storage.get('moltinCredentials'))))
+          .then(response => req(response))
           .catch(error => reject(error))
       }
       return req(credentials)

@@ -1,14 +1,15 @@
 import { assert } from 'chai'
 import nock from 'nock'
 import { gateway as MoltinGateway } from '../../src/moltin'
-import { productsArray as products } from '../factories'
+import { productsArray as products, TestStorageFactory } from '../factories'
 
 const apiUrl = 'https://api.moltin.com/v2'
 
 describe('Moltin products', () => {
   it('should return an array of products', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -27,7 +28,8 @@ describe('Moltin products', () => {
 
   it('should return a single product', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -46,7 +48,8 @@ describe('Moltin products', () => {
 
   it('should return a filtered array of products', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -75,7 +78,8 @@ describe('Moltin products', () => {
 
   it('should return a limited number of products', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -101,7 +105,8 @@ describe('Moltin products', () => {
 
   it('should return an array products offset by a value', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -127,7 +132,8 @@ describe('Moltin products', () => {
 
   it('should return all products and include associated brands, categories, collections', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -151,7 +157,8 @@ describe('Moltin products', () => {
 
   it('should return a single product and include associated brands, categories, collections', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -175,7 +182,8 @@ describe('Moltin products', () => {
 
   it('should return all products sorted by name key', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -199,7 +207,8 @@ describe('Moltin products', () => {
 
   it('should create a new product', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -227,7 +236,8 @@ describe('Moltin products', () => {
 
   it('should update a product', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -255,7 +265,8 @@ describe('Moltin products', () => {
 
   it('should delete a product', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request

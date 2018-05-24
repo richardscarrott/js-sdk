@@ -3,7 +3,9 @@ import nock from 'nock'
 import { gateway as MoltinGateway } from '../../src/moltin'
 import {
   ordersArray as orders,
-  orderItemsArray as orderItems
+  orderItemsArray as orderItems,
+  orderTransactionsArray as orderTransactions,
+  TestStorageFactory
 } from '../factories'
 
 const apiUrl = 'https://api.moltin.com/v2'
@@ -11,7 +13,8 @@ const apiUrl = 'https://api.moltin.com/v2'
 describe('Moltin orders', () => {
   it('should return an array of orders', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -31,7 +34,8 @@ describe('Moltin orders', () => {
 
   it('should return an array of orders from a specified customer', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -52,7 +56,8 @@ describe('Moltin orders', () => {
 
   it('should return an array of orders and include associated items', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -76,7 +81,8 @@ describe('Moltin orders', () => {
 
   it('should return an array of orders from a specified customer and include associated items', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -101,7 +107,8 @@ describe('Moltin orders', () => {
 
   it('should return a single order', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -121,7 +128,8 @@ describe('Moltin orders', () => {
 
   it('should return a single order using a JWT', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -142,7 +150,8 @@ describe('Moltin orders', () => {
 
   it('should return an array of items from an order', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -160,9 +169,35 @@ describe('Moltin orders', () => {
     })
   })
 
+  it('should return an array of transactions from an order', () => {
+    const Moltin = MoltinGateway({
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
+    })
+
+    // Intercept the API request
+    nock(apiUrl, {
+      reqheaders: {
+        Authorization: 'Bearer: a550d8cbd4a4627013452359ab69694cd446615a'
+      }
+    })
+      .get('/orders/order-1/transactions')
+      .reply(200, orderTransactions[0])
+
+    return Moltin.Orders.Transactions(orders[0].id).then(response => {
+      assert.propertyVal(response, 'id', 'transaction-1')
+      assert.nestedPropertyVal(
+        response,
+        'relationships.order.data.id',
+        'c5530906-7b68-42ee-99c3-68cfebdcd749'
+      )
+    })
+  })
+
   it('should complete a payment for an order', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
@@ -193,7 +228,8 @@ describe('Moltin orders', () => {
 
   it('should update an order', () => {
     const Moltin = MoltinGateway({
-      client_id: 'XXX'
+      client_id: 'XXX',
+      storage: new TestStorageFactory()
     })
 
     // Intercept the API request
